@@ -52,13 +52,21 @@
 		E5D320601D2B4B850061555F /* JNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				E5D327001D2DF86B008230C6 /* Source */,
 				E5D320611D2B4B850061555F /* AppDelegate.swift */,
-				E5D320631D2B4B850061555F /* JNavigation.swift */,
 				E5D320681D2B4B850061555F /* Assets.xcassets */,
 				E5D3206A1D2B4B850061555F /* LaunchScreen.storyboard */,
 				E5D3206D1D2B4B850061555F /* Info.plist */,
 			);
 			path = JNavigation;
+			sourceTree = "<group>";
+		};
+		E5D327001D2DF86B008230C6 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				E5D320631D2B4B850061555F /* JNavigation.swift */,
+			);
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +248,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JNavigation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lucky.JNavigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -251,6 +260,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JNavigation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lucky.JNavigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";

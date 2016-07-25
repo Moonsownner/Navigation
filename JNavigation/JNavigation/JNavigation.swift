@@ -176,7 +176,9 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationBar.shadowImage = UIImage()
         navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         
-        view.addSubview(statusBarBackView)
+        if !self.prefersStatusBarHidden(){
+            view.addSubview(statusBarBackView)
+        }
         view.addSubview(navigationBar)
         
         addChildViewController(childVC)
@@ -194,15 +196,32 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLayoutSubviews() {
         
-        statusBarBackView.frame = CGRectMake(0, 0, view.bounds.width, 20)
-        navigationBar.frame = CGRectMake(0, 20, view.bounds.width, 44)
-        
-        if !hidesBottomBarWhenPushed && tabBarController != nil{
-            childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64 - 49)
+        if !self.prefersStatusBarHidden(){
+            
+            statusBarBackView.frame = CGRectMake(0, 0, view.bounds.width, 20)
+            navigationBar.frame = CGRectMake(0, 20, view.bounds.width, 44)
+            if !hidesBottomBarWhenPushed && tabBarController != nil{
+                childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64 - 49)
+            }
+            else{
+                childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64)
+            }
+            
         }
         else{
-            childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64)
+            
+            statusBarBackView.hidden = true
+            navigationBar.frame = CGRectMake(0, 0, view.bounds.width, 44)
+            if !hidesBottomBarWhenPushed && tabBarController != nil{
+                childVC.view.frame = CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44 - 49)
+            }
+            else{
+                childVC.view.frame = CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44)
+            }
+            
         }
+        
+        
         
     }
     
