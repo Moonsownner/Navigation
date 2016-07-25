@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vc = TestViewController()
         vc.navigationStyle = JNavigationStyle.Default(color: UIColor.greenColor())
-        let a = JNavigationController(rootViewController: vc)
-        window?.rootViewController = a
+        window?.rootViewController = JNavigationController(rootViewController: vc)
         
         window?.makeKeyAndVisible()
         
