@@ -194,7 +194,7 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
         
         if !self.prefersStatusBarHidden(){
             
@@ -221,7 +221,7 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
             
         }
         
-        
+        childVC.viewWillLayoutSubviews()
         
     }
     

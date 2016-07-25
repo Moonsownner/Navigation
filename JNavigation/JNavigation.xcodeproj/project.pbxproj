@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E59E506C1D46228300CB9D4A /* JNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E50691D46228300CB9D4A /* JNavigationBar.swift */; };
+		E59E506D1D46228300CB9D4A /* JNavigationBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E506A1D46228300CB9D4A /* JNavigationBarType.swift */; };
+		E59E506E1D46228300CB9D4A /* JNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E506B1D46228300CB9D4A /* JNavigationController.swift */; };
 		E5D320621D2B4B850061555F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D320611D2B4B850061555F /* AppDelegate.swift */; };
 		E5D320641D2B4B850061555F /* JNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D320631D2B4B850061555F /* JNavigation.swift */; };
 		E5D320691D2B4B850061555F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D320681D2B4B850061555F /* Assets.xcassets */; };
@@ -14,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E59E50691D46228300CB9D4A /* JNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JNavigationBar.swift; sourceTree = "<group>"; };
+		E59E506A1D46228300CB9D4A /* JNavigationBarType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JNavigationBarType.swift; sourceTree = "<group>"; };
+		E59E506B1D46228300CB9D4A /* JNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JNavigationController.swift; sourceTree = "<group>"; };
 		E5D3205E1D2B4B850061555F /* JNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D320611D2B4B850061555F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5D320631D2B4B850061555F /* JNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNavigation.swift; sourceTree = "<group>"; };
@@ -33,6 +39,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E59E50681D46227000CB9D4A /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				E59E50691D46228300CB9D4A /* JNavigationBar.swift */,
+				E59E506A1D46228300CB9D4A /* JNavigationBarType.swift */,
+				E59E506B1D46228300CB9D4A /* JNavigationController.swift */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
 		E5D320551D2B4B850061555F = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +80,7 @@
 		E5D327001D2DF86B008230C6 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E59E50681D46227000CB9D4A /* Test */,
 				E5D320631D2B4B850061555F /* JNavigation.swift */,
 			);
 			name = Source;
@@ -139,7 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E59E506D1D46228300CB9D4A /* JNavigationBarType.swift in Sources */,
 				E5D320641D2B4B850061555F /* JNavigation.swift in Sources */,
+				E59E506C1D46228300CB9D4A /* JNavigationBar.swift in Sources */,
+				E59E506E1D46228300CB9D4A /* JNavigationController.swift in Sources */,
 				E5D320621D2B4B850061555F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
