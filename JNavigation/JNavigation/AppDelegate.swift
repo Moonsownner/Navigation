@@ -14,13 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         let vc = TestViewController()
-        vc.navigationStyle = JNavigationStyle.Default(color: UIColor.greenColor())
+        vc.navigationStyle = JNavigationStyle.default(color: UIColor.green)
         window?.rootViewController = JNavigationController(rootViewController: vc)
         
         window?.makeKeyAndVisible()
@@ -39,25 +39,25 @@ class TestViewController: UIViewController {
         
         title = "title"
         
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         
-        let button = UIButton(frame: CGRectMake(0,0,100,50))
-        button.backgroundColor = UIColor.redColor()
-        button.setTitle("push", forState: .Normal)
-        button.addTarget(self, action: #selector(TestViewController.push), forControlEvents: .TouchUpInside)
+        let button = UIButton(frame: CGRect(x: 0,y: 0,width: 100,height: 50))
+        button.backgroundColor = UIColor.red
+        button.setTitle("push", for: UIControlState())
+        button.addTarget(self, action: #selector(TestViewController.push), for: .touchUpInside)
         view.addSubview(button)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(TestViewController.pop))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TestViewController.pop))
         
     }
     
     func pop(){
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func push(){
         let vc = TestViewController()
-        vc.navigationStyle = JNavigationStyle.Default(color: UIColor.greenColor())
+        vc.navigationStyle = JNavigationStyle.default(color: UIColor.green)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

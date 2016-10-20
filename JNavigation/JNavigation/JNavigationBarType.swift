@@ -9,5 +9,5 @@
 import Foundation
 
 enum JNavigationBarType {
-    case Default
+    case `default`
 }

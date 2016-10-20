@@ -11,19 +11,19 @@ import UIKit
 struct JNavigationConfig {
     
     static var navigationStyleKey = "JNavigationStyle"
-    static var defaultColor = UIColor.blueColor()
+    static var defaultColor = UIColor.blue
     
 }
 
 class JNavigationController: UINavigationController {
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     override init(rootViewController: UIViewController) {
         switch rootViewController.navigationStyle {
-        case .Custom:
+        case .custom:
             super.init(rootViewController: rootViewController)
         default:
             super.init(rootViewController: WrapViewController(childVC: rootViewController))
@@ -58,9 +58,9 @@ class JNavigationController: UINavigationController {
         }
     }
     
-    override func pushViewController(viewController: UIViewController, animated: Bool) {
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         switch viewController.navigationStyle {
-        case .Custom:
+        case .custom:
             super.pushViewController(viewController, animated: animated)
         default:
             if viewController is WrapViewController{
@@ -72,7 +72,7 @@ class JNavigationController: UINavigationController {
         }
     }
     
-    override func setViewControllers(viewControllers: [UIViewController], animated: Bool) {
+    override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
         let vcs: [UIViewController] = viewControllers.map{
             
             guard !($0 is WrapViewController) else{
@@ -80,7 +80,7 @@ class JNavigationController: UINavigationController {
             }
             
             switch $0.navigationStyle{
-            case .Custom:
+            case .custom:
                 return $0
             default:
                 return WrapViewController(childVC: $0)
@@ -94,12 +94,12 @@ class JNavigationController: UINavigationController {
 
 extension JNavigationController: UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController === navigationController.viewControllers.first{
-            interactivePopGestureRecognizer?.enabled = false
+            interactivePopGestureRecognizer?.isEnabled = false
         }
         else{
-            interactivePopGestureRecognizer?.enabled = true
+            interactivePopGestureRecognizer?.isEnabled = true
             interactivePopGestureRecognizer!.delegate = self
         }
     }
@@ -108,24 +108,24 @@ extension JNavigationController: UINavigationControllerDelegate, UIGestureRecogn
 
 enum JNavigationStyle {
     
-    case Custom
-    case Default(color: UIColor)
+    case custom
+    case `default`(color: UIColor)
     
     var rawValue: Int {
         switch self {
-        case .Custom:
+        case .custom:
             return 0
-        case .Default(color: _):
+        case .default(color: _):
             return 1
         }
     }
     
     init(rawValue: Int){
         if rawValue == 1{
-            self = .Default(color: JNavigationConfig.defaultColor)
+            self = .default(color: JNavigationConfig.defaultColor)
         }
         else{
-            self = .Custom
+            self = .custom
         }
     }
     
@@ -142,7 +142,7 @@ extension UIViewController {
                 return JNavigationStyle(rawValue: i)
             }
             else{
-                return JNavigationStyle.Default(color: JNavigationConfig.defaultColor)
+                return JNavigationStyle.default(color: JNavigationConfig.defaultColor)
             }
         }
     }
@@ -171,22 +171,22 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
         
         hidesBottomBarWhenPushed = childVC.hidesBottomBarWhenPushed
         
-        navigationBar.pushNavigationItem(childVC.navigationItem, animated: true)
+        navigationBar.pushItem(childVC.navigationItem, animated: true)
         
         navigationBar.shadowImage = UIImage()
-        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         
-        if !self.prefersStatusBarHidden(){
+        if !self.prefersStatusBarHidden{
             view.addSubview(statusBarBackView)
         }
         view.addSubview(navigationBar)
         
         addChildViewController(childVC)
         view.addSubview(childVC.view)
-        childVC.didMoveToParentViewController(self)
+        childVC.didMove(toParentViewController: self)
         
         switch childVC.navigationStyle {
-        case .Default(color: let color):
+        case .default(color: let color):
             setBarColor(color)
         default:
             break
@@ -196,27 +196,27 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillLayoutSubviews() {
         
-        if !self.prefersStatusBarHidden(){
+        if !self.prefersStatusBarHidden{
             
-            statusBarBackView.frame = CGRectMake(0, 0, view.bounds.width, 20)
-            navigationBar.frame = CGRectMake(0, 20, view.bounds.width, 44)
+            statusBarBackView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 20)
+            navigationBar.frame = CGRect(x: 0, y: 20, width: view.bounds.width, height: 44)
             if !hidesBottomBarWhenPushed && tabBarController != nil{
-                childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64 - 49)
+                childVC.view.frame = CGRect(x: 0, y: 64, width: view.bounds.width, height: view.bounds.height - 64 - 49)
             }
             else{
-                childVC.view.frame = CGRectMake(0, 64, view.bounds.width, view.bounds.height - 64)
+                childVC.view.frame = CGRect(x: 0, y: 64, width: view.bounds.width, height: view.bounds.height - 64)
             }
             
         }
         else{
             
-            statusBarBackView.hidden = true
-            navigationBar.frame = CGRectMake(0, 0, view.bounds.width, 44)
+            statusBarBackView.isHidden = true
+            navigationBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
             if !hidesBottomBarWhenPushed && tabBarController != nil{
-                childVC.view.frame = CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44 - 49)
+                childVC.view.frame = CGRect(x: 0, y: 44, width: view.bounds.width, height: view.bounds.height - 44 - 49)
             }
             else{
-                childVC.view.frame = CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44)
+                childVC.view.frame = CGRect(x: 0, y: 44, width: view.bounds.width, height: view.bounds.height - 44)
             }
             
         }
@@ -226,17 +226,17 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     ///设置bar颜色
-    func setBarColor(color: UIColor){
+    func setBarColor(_ color: UIColor){
         statusBarBackView.backgroundColor = color
         navigationBar.backgroundColor = color
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return childVC.prefersStatusBarHidden()
+    override var prefersStatusBarHidden : Bool {
+        return childVC.prefersStatusBarHidden
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return childVC.preferredStatusBarStyle()
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return childVC.preferredStatusBarStyle
     }
     
 }

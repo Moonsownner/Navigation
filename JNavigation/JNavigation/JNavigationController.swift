@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class NavigationController: UIViewController {
+open class NavigationController: UIViewController {
     
 //    public var
     
