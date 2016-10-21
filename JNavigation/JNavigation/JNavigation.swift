@@ -8,16 +8,16 @@
 
 import UIKit
 
-struct JNavigationConfig {
+public struct JNavigationConfig {
     
     static var navigationStyleKey = "JNavigationStyle"
     static var defaultColor = UIColor.blue
     
 }
 
-class JNavigationController: UINavigationController {
+open class JNavigationController: UINavigationController {
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -30,11 +30,11 @@ class JNavigationController: UINavigationController {
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
@@ -58,7 +58,7 @@ class JNavigationController: UINavigationController {
         }
     }
     
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+    override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         switch viewController.navigationStyle {
         case .custom:
             super.pushViewController(viewController, animated: animated)
@@ -72,7 +72,7 @@ class JNavigationController: UINavigationController {
         }
     }
     
-    override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
+    override open func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
         let vcs: [UIViewController] = viewControllers.map{
             
             guard !($0 is WrapViewController) else{
@@ -94,7 +94,7 @@ class JNavigationController: UINavigationController {
 
 extension JNavigationController: UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController === navigationController.viewControllers.first{
             interactivePopGestureRecognizer?.isEnabled = false
         }
@@ -106,22 +106,22 @@ extension JNavigationController: UINavigationControllerDelegate, UIGestureRecogn
     
 }
 
-enum JNavigationStyle {
+public enum JNavigationStyle {
     
-    case custom
     case `default`(color: UIColor)
+    case custom
     
     var rawValue: Int {
         switch self {
-        case .custom:
-            return 0
         case .default(color: _):
+            return 0
+        case .custom:
             return 1
-        }
+       }
     }
     
     init(rawValue: Int){
-        if rawValue == 1{
+        if rawValue == 0{
             self = .default(color: JNavigationConfig.defaultColor)
         }
         else{
@@ -131,7 +131,7 @@ enum JNavigationStyle {
     
 }
 
-extension UIViewController {
+public extension UIViewController {
     
     var navigationStyle: JNavigationStyle{
         set{
@@ -147,26 +147,42 @@ extension UIViewController {
         }
     }
     
+    ///设置bar颜色
+    func setBarColor(_ color: UIColor){
+        if self is WrapViewController{
+            let vc = self as! WrapViewController
+            vc.statusBarBackView.backgroundColor = color
+            vc.navigationBar.backgroundColor = color
+        }
+        else{
+            if self.parent is WrapViewController{
+                let vc = self.parent as! WrapViewController
+                vc.statusBarBackView.backgroundColor = color
+                vc.navigationBar.backgroundColor = color
+            }
+        }
+    }
+
 }
 
-class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
+open class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let statusBarBackView = UIView()
     
     let navigationBar = UINavigationBar()
     
-    var childVC: UIViewController
+    let childVC: UIViewController
     
     init(childVC: UIViewController) {
         self.childVC = childVC
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         hidesBottomBarWhenPushed = childVC.hidesBottomBarWhenPushed
@@ -194,7 +210,7 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    override func viewWillLayoutSubviews() {
+    override open func viewWillLayoutSubviews() {
         
         if !self.prefersStatusBarHidden{
             
@@ -225,17 +241,11 @@ class WrapViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    ///设置bar颜色
-    func setBarColor(_ color: UIColor){
-        statusBarBackView.backgroundColor = color
-        navigationBar.backgroundColor = color
-    }
-    
-    override var prefersStatusBarHidden : Bool {
+    override open var prefersStatusBarHidden : Bool {
         return childVC.prefersStatusBarHidden
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
         return childVC.preferredStatusBarStyle
     }
     
