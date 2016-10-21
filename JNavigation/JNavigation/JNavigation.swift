@@ -36,11 +36,8 @@ open class JNavigationController: UINavigationController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
         delegate = self
-        
         setNavigationBarHidden(true, animated: false)
-        
     }
     
     var j_viewControllers: [UIViewController]{
